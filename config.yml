@@ -1,0 +1,5 @@
+app:
+  port: 5050
+
+grpc:
+  port: 5051

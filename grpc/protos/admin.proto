@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package admin;
+
+option go_package = "admin-service/grpc/protos";
+
+// Admin service for authentication and management
+service AdminService {
+  // Admin login
+  rpc Login(LoginRequest) returns (LoginResponse);
+  
+  // Verify admin token
+  rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
+}
+
+// Login request
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+// Login response
+message LoginResponse {
+  string token = 1;
+  AdminInfo admin = 2;
+}
+
+
+// Logout response
+message LogoutResponse {
+  string message = 1;
+  bool success = 2;
+}
+
+// Verify token request
+message VerifyTokenRequest {
+  string token = 1;
+}
+
+// Verify token response
+message VerifyTokenResponse {
+  bool valid = 1;
+  AdminInfo admin = 2;
+  string message = 3;
+}
+
+// Admin information
+message AdminInfo {
+  uint64 id = 1;
+  string username = 2;
+  string email = 3;
+  repeated string permissions = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
